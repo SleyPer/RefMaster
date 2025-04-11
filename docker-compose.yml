@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+  db:
+    container_name: RefMaster-db
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: RefMasterDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  adminer:
+    container_name: RefMaster-adminer
+    image: adminer:4.8.0-standalone
+    restart: always
+    ports:
+      - "9080:8080"
+
+  api:
+    build:
+      context: ./ref-master-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - ./ref-master-backend:/app
+volumes:
+  mysql-data:
+  backend-data:
