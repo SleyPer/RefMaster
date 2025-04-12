@@ -1,0 +1,15 @@
+<div class="upload-dropzone" 
+    (drop)="onFileDrop($event)" 
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)" 
+    [class.dragover]="isDragOver" 
+    (click)="fileInput.click()"
+>
+    <p>Glissez votre fichier PDF ici ou cliquez pour sélectionner</p>
+    <input #fileInput 
+        type="file" 
+        accept=".pdf" 
+        (change)="onFileSelected($event)" 
+        hidden 
+    />
+</div>

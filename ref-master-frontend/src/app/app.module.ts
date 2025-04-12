@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DesignationsComponent } from './components/designations/designations.component';
+import { UploadPdfComponent } from './components/upload-pdf/upload-pdf.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DesignationsComponent } from './components/designations/designations.co
     NavbarComponent,
     SidebarComponent,
     DashboardComponent,
-    DesignationsComponent
+    DesignationsComponent,
+    UploadPdfComponent
   ],
   imports: [
     BrowserModule,

@@ -12,30 +12,14 @@ import { ArbitreService } from 'src/app/services/arbitre.service';
 })
 export class DesignationsComponent implements OnInit {
   designations: Designation[] = [];
-  arbitres: Arbitre[] = [];
-  newDesignation: Designation = {
-    date: '',
-    division: '',
-    equipeA: '',
-    equipeB: '',
-    salle: '',
-    ville: '',
-    collegue: null as any,
-    kmParcourus: 0,
-    revenus: 0
-  };
-
-  isModalOpen: boolean = false;
 
   constructor(
     private designationService: DesignationService,
-    private arbitreService: ArbitreService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.getDesignations();
-    this.getArbitres();
   }
 
   getDesignations(): void {
@@ -44,31 +28,7 @@ export class DesignationsComponent implements OnInit {
     });
   }
 
-  getArbitres(): void {
-    this.arbitreService.getArbitres().subscribe(data => {
-      this.arbitres = data;
-    });
+  onUploadFinish(): void {
+    this.getDesignations();
   }
-
-  openCreateModal(): void {
-    this.isModalOpen = true;
-  }
-
-  closeModal(): void {
-    this.isModalOpen = false;
-  }
-
-  createDesignation(): void {
-    this.designationService.createDesignation(this.newDesignation).subscribe({
-      next: (response: Designation) => {
-        this.designations.push(response);
-        this.closeModal();
-        this.toastr.success('Désignation créée avec succès!');
-      },
-      error: () => {
-        this.toastr.error('Erreur lors de la création de la désignation');
-      }
-    });
-  }
-
 }
