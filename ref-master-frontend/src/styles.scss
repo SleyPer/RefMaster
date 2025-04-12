@@ -1,1 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+
+    .mat-mdc-snack-bar-container {
+        &.success-snackbar {
+            --mdc-snackbar-container-color: #186C26;
+            --mat-mdc-snack-bar-button-color: #fff;
+            --mdc-snackbar-supporting-text-color: #fff;
+        }
+    }
+
+    .mat-mdc-snack-bar-container {
+        &.error-snackbar {
+            --mdc-snackbar-container-color: #6C1818;
+            --mat-mdc-snack-bar-button-color: #fff;
+            --mdc-snackbar-supporting-text-color: #fff;
+        }
+    }
+}
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8fafc;
+}

@@ -1,0 +1,21 @@
+.navbar {
+    height: 60px;
+    background-color: #1e293b;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.user-info {
+    font-size: 0.9rem;
+}

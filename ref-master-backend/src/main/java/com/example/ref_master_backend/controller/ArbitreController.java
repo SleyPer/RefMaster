@@ -3,15 +3,16 @@ package com.example.ref_master_backend.controller;
 import com.example.ref_master_backend.entity.Arbitre;
 import com.example.ref_master_backend.service.ArbitreService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/arbitres")
-@AllArgsConstructor
 public class ArbitreController {
 
+    @Autowired
     private ArbitreService arbitreService;
 
     @GetMapping
