@@ -14,7 +14,7 @@ RefMaster est une application web dédiée aux arbitres de basketball, pensée p
 🛠️ Technologies utilisées :
   - Backend : Java, Spring Boot, Spring Data JPA
   - Base de données : MySQL
-  - Frontend (à venir) : Angular
+  - Frontend : Angular
   - Sécurité : Authentification avec Spring Security
   - API RESTful : architecture claire pour intégration facile avec un frontend moderne
 
