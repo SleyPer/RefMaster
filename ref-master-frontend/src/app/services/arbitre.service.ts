@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Arbitre {
-  id: number;
-  nom: string;
-  prenom: string;
-  club: string;
-}
+import { Arbitre } from '../models/arbitre.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArbitreService {
-  private apiUrl = 'http://localhost:8080/api/arbitres'; // adapte selon ton setup Docker
+  private apiUrl = 'http://localhost:8080/api/arbitres';
 
   constructor(private http: HttpClient) { }
 

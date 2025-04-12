@@ -18,12 +18,17 @@ public class Arbitre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nom;
-
-    @Column(nullable = false)
     private String prenom;
-
-    @Column(nullable = false)
+    private String email;
+    private String tel;
     private String club;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

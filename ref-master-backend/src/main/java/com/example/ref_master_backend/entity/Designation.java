@@ -26,7 +26,17 @@ public class Designation {
     private String equipeB;
     private String salle;
     private String ville;
-    private String collegue;
+    @ManyToOne
+    @JoinColumn(name = "collegue_id", referencedColumnName = "id")
+    private Arbitre collegue;
     private double kmParcourus;
     private double revenus;
+
+    public Arbitre getCollegue() {
+        return collegue;
+    }
+
+    public void setCollegue(Arbitre collegue) {
+        this.collegue = collegue;
+    }
 }

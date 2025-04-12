@@ -13,6 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql-data:/var/lib/mysql
 
   adminer:
@@ -44,5 +45,6 @@ services:
       - ./ref-master-frontend:/app
 volumes:
   mysql-data:
+    driver: local
   backend-data:
   frontend-data:
