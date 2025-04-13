@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Designation } from 'src/app/models/designation.model';
+import { ListeDesignations } from '../models/liste-designations.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class DesignationService {
 
   constructor(private http: HttpClient) { }
 
-  getDesignations(): Observable<Designation[]> {
-    return this.http.get<Designation[]>(this.apiUrl);
+  getDesignations(): Observable<ListeDesignations> {
+    return this.http.get<ListeDesignations>(this.apiUrl);
   }
 
   createDesignation(designation: Designation): Observable<Designation> {

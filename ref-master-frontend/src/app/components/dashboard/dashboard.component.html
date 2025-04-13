@@ -1,1 +1,39 @@
-<h2>Bienvenue sur RefMaster 👋</h2>
+<div class="dashboard-container">
+    <h1 class="page-title">Bienvenue 👋</h1>
+
+    <div class="cards-container fade-in">
+        <div class="stat-card">
+            <h3>Matchs</h3>
+            <p>{{ globalStats.totalMatchs }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Km parcourus</h3>
+            <p>{{ globalStats.totalKm }} km</p>
+        </div>
+        <div class="stat-card">
+            <h3>Revenus</h3>
+            <p>{{ globalStats.totalRevenus }} €</p>
+        </div>
+    </div>
+
+    <div class="next-designation fade-in-delay">
+        <h2>📅 Prochaine désignation</h2>
+        <p><strong>{{ nextDesignation.date }}</strong> – {{ nextDesignation.salle }} ({{ nextDesignation.ville }})</p>
+        <p>Match : {{ nextDesignation.equipeA }} vs {{ nextDesignation.equipeB }}</p>
+        <p>Collègue : {{ nextDesignation.collegue }}</p>
+    </div>
+
+    <div class="last-designations fade-in-delay-2">
+        <h2>🕑 Dernières désignations</h2>
+        <ul>
+            <li *ngFor="let d of lastDesignations">
+                {{ d.date }} – {{ d.salle }} ({{ d.ville }})
+            </li>
+        </ul>
+    </div>
+
+    <div class="actions fade-in-delay-3">
+        <button>➕ Ajouter une désignation</button>
+        <button>📊 Voir mes statistiques</button>
+    </div>
+</div>

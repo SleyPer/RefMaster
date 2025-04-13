@@ -1,7 +1,9 @@
+@import 'src/styles/variables';
+
 .navbar {
     height: 60px;
-    background-color: #1e293b;
-    color: white;
+    background-color: $navbar-bg;
+    color: $navbar-text;
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -18,4 +20,89 @@
 
 .user-info {
     font-size: 0.9rem;
+}
+
+.theme-toggle {
+    margin-left: 50px;
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 32px;
+
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            background-color: #ccc;
+            border-radius: 50px;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: background-color 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+
+            .icon {
+                font-size: 16px;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .sun {
+                color: #fbbf24;
+            }
+
+            .moon {
+                color: #64748b;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                height: 24px;
+                width: 24px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                border-radius: 50%;
+                transition: transform 0.4s ease;
+            }
+        }
+
+        input:checked+.slider {
+            background-color: #14a7d6;
+
+            .sun {
+                opacity: 0;
+            }
+
+            .moon {
+                opacity: 1;
+            }
+
+            &::before {
+                transform: translateX(28px);
+            }
+        }
+
+        input:not(:checked)+.slider {
+            .sun {
+                opacity: 1;
+            }
+
+            .moon {
+                opacity: 0;
+            }
+        }
+    }
 }

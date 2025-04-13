@@ -25,12 +25,16 @@ public class StatistiquesService {
     public StatistiquesGlobalesDto genererStatistiquesPourUtilisateurConnecte() {
         List<Designation> designations = designationRepository.findAll();
 
-        StatistiquesGlobalesDto stats = new StatistiquesGlobalesDto();
-        stats.setTotalMatchs(designations.size());
-        stats.setTotalKm(designations.stream().mapToDouble(Designation::getKmParcourus).sum());
-        stats.setTotalRevenus(designations.stream().mapToDouble(Designation::getRevenus).sum());
+        List<Designation> designationsPassees = designations.stream()
+                .filter(d -> d.getDate().isBefore(LocalDate.now()))
+                .toList();
 
-        Map<Integer, List<Designation>> designationsParAnnee = designations.stream()
+        StatistiquesGlobalesDto stats = new StatistiquesGlobalesDto();
+        stats.setTotalMatchs(designationsPassees.size());
+        stats.setTotalKm(designationsPassees.stream().mapToDouble(Designation::getKmParcourus).sum());
+        stats.setTotalRevenus(designationsPassees.stream().mapToDouble(Designation::getRevenus).sum());
+
+        Map<Integer, List<Designation>> designationsParAnnee = designationsPassees.stream()
                 .collect(Collectors.groupingBy(d -> d.getDate().getYear()));
 
         List<StatistiquesParAnneeDto> statsParAnnee = new ArrayList<>();

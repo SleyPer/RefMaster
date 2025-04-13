@@ -62,7 +62,7 @@ public class DesignationService {
         }
 
         // 2. Division
-        Matcher divisionMatcher = Pattern.compile("COMPETITION:\\s*\\d{2}/\\d{2}/\\d{4}\\s+\\d{2}:\\d{2}\\s+\\d+\\s+(.*?)\\r?\\n").matcher(text);
+        Matcher divisionMatcher = Pattern.compile("COMPETITION:\\s*\\d{2}/\\d{2}/\\d{4}\\s+\\d{2}:\\d{2}\\s+\\d+\\s+([^\\(\\r\\n]+)").matcher(text);
         if (divisionMatcher.find()) {
             designation.setDivision(divisionMatcher.group(1).trim());
         }
@@ -80,13 +80,13 @@ public class DesignationService {
         }
 
         // 5. Salle
-        Matcher salleMatcher = Pattern.compile("(SALLE|Salle|GYMNASE|COMPLEXE|HALLE|CENTRE)\\s+([A-ZÉÈÀÙ' \\-]+)").matcher(text);
+        Matcher salleMatcher = Pattern.compile("(SALLE|Salle|GYMNASE|Gymnase|COMPLEXE|Complexe|HALLE|Halle|CENTRE|Centre)\\s+([A-ZÉÈÀÙ' \\-]+)").matcher(text);
         if (salleMatcher.find()) {
             designation.setSalle(salleMatcher.group(1).trim() + " " + salleMatcher.group(2).trim());
         }
 
         // 6. Ville
-        Matcher villeMatcher = Pattern.compile("(?:SALLE|Salle|GYMNASE|COMPLEXE|HALLE|CENTRE).*?(\\d{5})\\s+([A-ZÉÈÀÙ\\-\\' ]+)", Pattern.MULTILINE).matcher(text);
+        Matcher villeMatcher = Pattern.compile("(?:SALLE|Salle|GYMNASE|Gymnase|COMPLEXE|Complexe|HALLE|Halle|CENTRE|Centre).*?(\\d{5})\\s+([A-ZÉÈÀÙ\\-\\' ]+)", Pattern.MULTILINE).matcher(text);
         if (villeMatcher.find()) {
             String ville = villeMatcher.group(2).trim();
             designation.setVille(ville);

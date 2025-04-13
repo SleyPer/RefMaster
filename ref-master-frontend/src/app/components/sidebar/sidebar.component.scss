@@ -1,14 +1,17 @@
+@import 'src/styles/variables';
+
 .sidebar {
     width: 200px;
-    background-color: #334155;
-    color: white;
+    height: 100%;
+    background-color: $sidebar-bg;
+    color: $sidebar-text;
     display: flex;
     flex-direction: column;
     padding: 20px 10px;
 }
 
 .sidebar a {
-    color: white;
+    color: $sidebar-text;
     text-decoration: none;
     padding: 10px;
     margin-bottom: 5px;
@@ -17,5 +20,5 @@
 
 .sidebar a.active,
 .sidebar a:hover {
-    background-color: #475569;
+    background-color: $sidebar-hover;
 }

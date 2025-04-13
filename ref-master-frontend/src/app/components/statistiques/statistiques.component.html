@@ -1,18 +1,18 @@
 <div class="stats-container">
     <h2 class="title">Statistiques globales</h2>
 
-    <div class="global-cards">
+    <div class="global-cards" *ngIf="statsGlobales">
         <div class="card">
             <h3>Matchs</h3>
-            <p>{{ statsGlobales?.totalMatchs }}</p>
+            <p>{{ statsGlobales.totalMatchs }}</p>
         </div>
         <div class="card">
             <h3>Kilomètres</h3>
-            <p>{{ statsGlobales?.totalKm | number:'1.0-2' }} km</p>
+            <p>{{ statsGlobales.totalKm | number:'1.0-2' }} km</p>
         </div>
         <div class="card">
             <h3>Revenus</h3>
-            <p>{{ statsGlobales?.totalRevenus | currency:'EUR':'symbol' }}</p>
+            <p>{{ statsGlobales.totalRevenus | currency:'EUR':'symbol' }}</p>
         </div>
     </div>
 

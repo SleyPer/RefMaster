@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/designations")
@@ -23,8 +27,24 @@ public class DesignationController {
 
     // Récupérer toutes les désignations
     @GetMapping
-    public List<Designation> getAllDesignations() {
-        return designationService.getAllDesignations();
+    public ResponseEntity<Map<String, List<Designation>>> getAllDesignations() {
+        List<Designation> all = designationService.getAllDesignations();
+
+        LocalDate now = LocalDate.now();
+
+        List<Designation> past = all.stream()
+                .filter(d -> d.getDate().isBefore(now))
+                .collect(Collectors.toList());
+
+        List<Designation> future = all.stream()
+                .filter(d -> d.getDate().isAfter(now))
+                .collect(Collectors.toList());
+
+        Map<String, List<Designation>> response = new HashMap<>();
+        response.put("past", past);
+        response.put("future", future);
+
+        return ResponseEntity.ok(response);
     }
 
     // Récupérer une désignation par ID

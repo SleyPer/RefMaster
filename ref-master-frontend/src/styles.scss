@@ -1,3 +1,5 @@
+@import './styles/variables';
+
 * {
     margin: 0;
     padding: 0;
@@ -9,41 +11,53 @@ html {
     height: 100%;
     width: 100%;
 
-    .mat-mdc-snack-bar-container {
-        &.success-snackbar {
-            --mdc-snackbar-container-color: #186C26;
-            --mat-mdc-snack-bar-button-color: #fff;
-            --mdc-snackbar-supporting-text-color: #fff;
-        }
-    }
-
-    .mat-mdc-snack-bar-container {
-        &.error-snackbar {
-            --mdc-snackbar-container-color: #6C1818;
-            --mat-mdc-snack-bar-button-color: #fff;
-            --mdc-snackbar-supporting-text-color: #fff;
-        }
-    }
+    transition: background-color 1s ease, color 1s ease;
 }
 
-.app-container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
+body {
+    --color-bg: #{$color-bg-light};
+    --color-card: #{$color-card-light};
+    --color-text: #{$color-text-light};
+    --color-primary: #{$color-primary-light};
+    --color-accent: #{$color-accent-light};
+    --color-border: #{$color-border-light};
+    --color-hover: #{$color-hover-light};
+    --color-alt-row: #{$color-alt-row-light};
+    --shadow: #{$shadow-light};
+    --navbar-bg: #{$navbar-bg-light};
+    --navbar-text: #{$navbar-text-light};
+    --sidebar-bg: #{$sidebar-bg-light};
+    --sidebar-text: #{$sidebar-text-light};
+    --sidebar-hover: #{$sidebar-hover-light};
+    --separator-bg: #{$separator-bg-light};
+    --separator-color: #{$separator-color-light};
+    --separator-primary: #{$separator-primary-light};
+    background-color: var(--color-bg);
+    color: var(--color-text);
+
+    transition: all 0.4s ease;
 }
 
-.main-layout {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
+body.dark-mode {
+    --color-bg: #{$color-bg-dark};
+    --color-card: #{$color-card-dark};
+    --color-text: #{$color-text-dark};
+    --color-primary: #{$color-primary-dark};
+    --color-accent: #{$color-accent-dark};
+    --color-border: #{$color-border-dark};
+    --color-hover: #{$color-hover-dark};
+    --color-alt-row: #{$color-alt-row-dark};
+    --shadow: #{$shadow-dark};
+    --navbar-bg: #{$navbar-bg-dark};
+    --navbar-text: #{$navbar-text-dark};
+    --sidebar-bg: #{$sidebar-bg-dark};
+    --sidebar-text: #{$sidebar-text-dark};
+    --sidebar-hover: #{$sidebar-hover-dark};
+    --separator-bg: #{$separator-bg-dark};
+    --separator-color: #{$separator-color-dark};
+    --separator-primary: #{$separator-primary-dark};
+    background-color: var(--color-bg);
+    color: var(--color-text);
 
-.content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f8fafc;
-    min-width: 0;
-    overflow-y: auto;
+    transition: all 0.4s ease;
 }
