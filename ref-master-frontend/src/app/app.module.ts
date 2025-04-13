@@ -12,6 +12,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DesignationsComponent } from './components/designations/designations.component';
 import { UploadPdfComponent } from './components/upload-pdf/upload-pdf.component';
+import { StatistiquesComponent } from './components/statistiques/statistiques.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UploadPdfComponent } from './components/upload-pdf/upload-pdf.component
     SidebarComponent,
     DashboardComponent,
     DesignationsComponent,
-    UploadPdfComponent
+    UploadPdfComponent,
+    StatistiquesComponent
   ],
   imports: [
     BrowserModule,

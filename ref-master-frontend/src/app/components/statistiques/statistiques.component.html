@@ -1,0 +1,44 @@
+<div class="stats-container">
+    <h2 class="title">Statistiques globales</h2>
+
+    <div class="global-cards">
+        <div class="card">
+            <h3>Matchs</h3>
+            <p>{{ statsGlobales?.totalMatchs }}</p>
+        </div>
+        <div class="card">
+            <h3>Kilomètres</h3>
+            <p>{{ statsGlobales?.totalKm | number:'1.0-2' }} km</p>
+        </div>
+        <div class="card">
+            <h3>Revenus</h3>
+            <p>{{ statsGlobales?.totalRevenus | currency:'EUR':'symbol' }}</p>
+        </div>
+    </div>
+
+    <div *ngFor="let annee of statsParAnnee" class="annee-stats">
+        <h3>{{ annee.annee }}</h3>
+        <div class="annee-summary">
+            <p><strong>Matchs :</strong> {{ annee.matchs }}</p>
+            <p><strong>Kilomètres :</strong> {{ annee.km | number:'1.0-2' }} km</p>
+            <p><strong>Revenus :</strong> {{ annee.revenus | currency:'EUR':'symbol' }}</p>
+        </div>
+
+        <div class="favoris">
+            <p><strong>Salle préférée :</strong> {{ annee.sallePreferee || '–' }}</p>
+            <p><strong>Équipe favorite :</strong> {{ annee.equipeFavorite || '–' }}</p>
+            <p><strong>Collègue favori :</strong> {{ annee.collegueFavori || '–' }}
+                <span *ngIf="annee.matchsAvecCollegueFavori">({{ annee.matchsAvecCollegueFavori }} matchs)</span>
+            </p>
+        </div>
+
+        <div class="mois-grid">
+            <div class="mois-card" *ngFor="let mois of annee.parMois">
+                <h4>{{ moisNoms[mois.mois] }}</h4>
+                <p><strong>Matchs :</strong> {{ mois.matchs }}</p>
+                <p><strong>Kilomètres :</strong> {{ mois.km | number:'1.0-2' }} km</p>
+                <p><strong>Revenus :</strong> {{ mois.revenus | currency:'EUR':'symbol' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

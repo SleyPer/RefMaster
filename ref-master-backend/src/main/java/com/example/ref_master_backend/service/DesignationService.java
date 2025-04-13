@@ -28,7 +28,7 @@ public class DesignationService {
 
     // Récupérer toutes les désignations
     public List<Designation> getAllDesignations() {
-        return designationRepository.findAll();
+        return designationRepository.findAllByOrderByDateAsc();
     }
 
     // Ajouter une nouvelle désignation
@@ -80,26 +80,34 @@ public class DesignationService {
         }
 
         // 5. Salle
-        Matcher salleMatcher = Pattern.compile("(SALLE|GYMNASE|COMPLEXE|HALLE)\\s+([A-ZÉÈÀÙ' \\-]+)").matcher(text);
+        Matcher salleMatcher = Pattern.compile("(SALLE|Salle|GYMNASE|COMPLEXE|HALLE|CENTRE)\\s+([A-ZÉÈÀÙ' \\-]+)").matcher(text);
         if (salleMatcher.find()) {
             designation.setSalle(salleMatcher.group(1).trim() + " " + salleMatcher.group(2).trim());
         }
 
         // 6. Ville
-        Matcher villeMatcher = Pattern.compile("(?:SALLE|GYMNASE|COMPLEXE|HALLE).*?(\\d{5})\\s+([A-ZÉÈÀÙ\\-\\' ]+)", Pattern.MULTILINE).matcher(text);
+        Matcher villeMatcher = Pattern.compile("(?:SALLE|Salle|GYMNASE|COMPLEXE|HALLE|CENTRE).*?(\\d{5})\\s+([A-ZÉÈÀÙ\\-\\' ]+)", Pattern.MULTILINE).matcher(text);
         if (villeMatcher.find()) {
             String ville = villeMatcher.group(2).trim();
             designation.setVille(ville);
         }
 
         // 7. Collègue - prénom et nom
-        Matcher collegueMatcher = Pattern.compile("Arbitre\\s*:\\s*(?!PREVOST Thomas)([A-Z]+)\\s+([A-Za-z]+)").matcher(text);
+        Matcher collegueMatcher = Pattern.compile(
+                "Arbitre\\s*:\\s*(?!PREVOST Thomas)((?:[A-Z]+\\s?)+)\\s+((?:[A-Za-zÀ-ÿ\\-]+\\s?)+)"
+        ).matcher(text);
+
         if (collegueMatcher.find()) {
             String nom = collegueMatcher.group(1).trim();
             String prenom = collegueMatcher.group(2).trim();
 
+            nom = nom.replaceAll("\\s+", " ");
+            prenom = prenom.replaceAll("\\s+", " ");
+
+            String finalNom = nom;
+            String finalPrenom = prenom;
             Arbitre collegue = arbitreRepository.findByNomAndPrenom(nom, prenom)
-                    .orElseThrow(() -> new RuntimeException("Impossible de lire le collègue arbitre."));
+                    .orElseThrow(() -> new RuntimeException("Impossible de lire le collègue arbitre : " + finalNom + " " + finalPrenom));
 
             designation.setCollegue(collegue);
         }

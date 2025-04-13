@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { DesignationService } from 'src/app/services/designation.service';
 import { Designation } from 'src/app/models/designation.model';
-import { Arbitre } from 'src/app/models/arbitre.model';
-import { ArbitreService } from 'src/app/services/arbitre.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-designations',
   templateUrl: './designations.component.html',
   styleUrls: ['./designations.component.scss']
 })
-export class DesignationsComponent implements OnInit {
+export class DesignationsComponent implements OnInit, OnDestroy {
   designations: Designation[] = [];
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private designationService: DesignationService,
@@ -23,12 +24,19 @@ export class DesignationsComponent implements OnInit {
   }
 
   getDesignations(): void {
-    this.designationService.getDesignations().subscribe((designations: Designation[]) => {
-      this.designations = designations;
-    });
+    this.designationService.getDesignations()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((designations: Designation[]) => {
+        this.designations = designations;
+      });
   }
 
   onUploadFinish(): void {
     this.getDesignations();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
