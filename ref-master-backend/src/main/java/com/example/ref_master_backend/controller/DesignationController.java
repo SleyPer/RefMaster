@@ -12,10 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -69,24 +66,35 @@ public class DesignationController {
     }
 
     @PostMapping("/upload-pdf")
-    public ResponseEntity<?> uploadPdf(@RequestParam("file") MultipartFile file) throws IOException {
-        // Vérification du type du fichier PDF
-        if (!file.getContentType().equals("application/pdf")) {
-            return ResponseEntity.badRequest().body("Type de fichier invalide. Merci de fournir un fichier de type PDF.");
+    public ResponseEntity<?> upload(@RequestParam("files") MultipartFile[] files) {
+        List<Designation> createdDesignations = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            try {
+                // Vérification du type MIME
+                if (!"application/pdf".equals(file.getContentType())) {
+                    return ResponseEntity.badRequest().body("Le fichier " + file.getOriginalFilename() + " n'est pas un PDF.");
+                }
+
+                // Extraction du texte du PDF
+                PDDocument document = PDDocument.load(file.getInputStream());
+                PDFTextStripper pdfStripper = new PDFTextStripper();
+                String text = pdfStripper.getText(document);
+                document.close();
+
+                System.out.println("Désignation du fichier : " + file.getOriginalFilename());
+                System.out.println(text);
+
+                // Création d'une désignation à partir du texte
+                Designation newDesignation = designationService.createFromPdfText(text);
+                createdDesignations.add(newDesignation);
+
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Erreur lors du traitement de " + file.getOriginalFilename() + " : " + e.getMessage());
+            }
         }
 
-        // Extraction du texte du PDF
-        PDDocument document = PDDocument.load(file.getInputStream());
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        String text = pdfStripper.getText(document);
-        document.close();
-
-        System.out.println("Voici à quoi ressemble la désignation : ");
-        System.out.println(text);
-
-        // Appel d'un service pour parser le texte et créer une nouvelle désignation
-        Designation newDesignation = designationService.createFromPdfText(text);
-
-        return ResponseEntity.ok(newDesignation);
+        return ResponseEntity.ok(createdDesignations);
     }
 }

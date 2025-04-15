@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .app-container {
     height: 100vh;
     display: flex;
@@ -18,6 +20,6 @@
     padding: 20px;
     overflow-y: auto;
     height: calc(100vh - 60px);
-    background-color: #f8fafc;
+    background-color: $color-card;
     min-width: 0;
 }

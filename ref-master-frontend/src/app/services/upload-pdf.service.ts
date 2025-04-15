@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Designation } from '../models/designation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class PdfService {
 
   constructor(private http: HttpClient) { }
 
-  uploadPdf(file: File): Observable<any> {
+  uploadPdf(files: File[]): Observable<Designation[]> {
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    files.forEach(file => formData.append('files', file));
 
-    return this.http.post<any>(this.apiUrl + '/upload-pdf', formData);
+    return this.http.post<Designation[]>(this.apiUrl + '/upload-pdf', formData);
   }
 }

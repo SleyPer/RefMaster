@@ -3,13 +3,28 @@
     (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)" 
     [class.dragover]="isDragOver" 
+    [class.uploading]="isUploading"
     (click)="fileInput.click()"
 >
-    <p>Glissez votre fichier PDF ici ou cliquez pour sélectionner</p>
+
+    <ng-container *ngIf="!isUploading; else loading">
+        <p>Glissez votre fichier PDF ici ou cliquez pour sélectionner</p>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <p>Chargement en cours...</p>
+        </div>
+    </ng-template>
+
     <input #fileInput 
         type="file" 
+        webkitdirectory 
+        directory 
+        multiple 
         accept=".pdf" 
-        (change)="onFileSelected($event)" 
-        hidden 
+        (change)="onFileSelected($event)"
+        hidden
     />
 </div>
