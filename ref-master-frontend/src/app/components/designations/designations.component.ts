@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { DesignationService } from 'src/app/services/designation.service';
 import { Designation } from 'src/app/models/designation.model';
 import { Subject, takeUntil } from 'rxjs';
@@ -19,6 +18,10 @@ export class DesignationsComponent implements OnInit, OnDestroy {
   futureDesignations: Designation[] = [];
 
   showScrollTopButton = false;
+  showScrollBottomButton = true;
+
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   private destroy$ = new Subject<void>();
 
@@ -32,13 +35,17 @@ export class DesignationsComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.tableWrapper) {
-      this.tableWrapper.nativeElement.addEventListener('scroll', () => {
-        const scrollTop = this.tableWrapper.nativeElement.scrollTop;
-        this.showScrollTopButton = scrollTop > 200;
-      });
-      setTimeout(() => this.scrollToBottom(), 400);
-    }
+    this.tableWrapper.nativeElement.addEventListener('scroll', () => this.onTableScroll());
+  }
+
+  onTableScroll(): void {
+    const el = this.tableWrapper.nativeElement;
+    const scrollTop = el.scrollTop;
+    const scrollHeight = el.scrollHeight;
+    const clientHeight = el.clientHeight;
+
+    this.showScrollTopButton = scrollTop > 100;
+    this.showScrollBottomButton = scrollTop + clientHeight < scrollHeight - 200;
   }
 
   scrollToBottom(): void {
@@ -71,16 +78,6 @@ export class DesignationsComponent implements OnInit, OnDestroy {
     this.contentService.scrollToTop();
   }
 
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollContainer = this.tableWrapper?.nativeElement;
-    if (scrollContainer) {
-      const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-      this.showScrollTopButton = scrollTop < scrollHeight - clientHeight - 200;
-    }
-  }
-
   getDesignations(): void {
     this.designationService.getDesignations()
       .pipe(takeUntil(this.destroy$))
@@ -94,6 +91,39 @@ export class DesignationsComponent implements OnInit, OnDestroy {
   onUploadFinish(): void {
     this.getDesignations();
     setTimeout(() => this.scrollToBottom(), 300);
+  }
+
+  sortBy(column: string) {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    const direction = this.sortDirection === 'asc' ? 1 : -1;
+
+    const sortFn = (a: any, b: any) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      if (valueA == null) return -1 * direction;
+      if (valueB == null) return 1 * direction;
+
+      if (typeof valueA === 'string') {
+        return valueA.localeCompare(valueB) * direction;
+      }
+
+      return (valueA > valueB ? 1 : -1) * direction;
+    };
+
+    this.pastDesignations.sort(sortFn);
+    this.futureDesignations.sort(sortFn);
+  }
+
+  getSortIcon(column: string): string {
+    if (this.sortColumn !== column) return '⇅';
+    return this.sortDirection === 'asc' ? '↑' : '↓';
   }
 
   ngOnDestroy(): void {

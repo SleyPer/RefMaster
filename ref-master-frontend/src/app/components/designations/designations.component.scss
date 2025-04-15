@@ -40,6 +40,7 @@
         border-radius: 12px;
         box-shadow: $shadow;
         overflow-x: auto;
+        overflow-y: auto;
         max-height: 1000px;
         padding: 0;
         scroll-behavior: smooth;
@@ -68,6 +69,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             z-index: 2;
+            cursor: pointer;
         }
 
         td {
@@ -112,6 +114,33 @@
     vertical-align: middle;
 }
 
+.no-designation-row {
+    text-align: center;
+    padding: 16px;
+    font-style: italic;
+    color: var(--color-text);
+    background-color: var(--color-alt-row);
+}
+
+th .sortable-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.sort-icon {
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+
+    &.active {
+        color: $color-text;
+    }
+}
+
+
+
 @keyframes fadeInSeparator {
     from {
         opacity: 0;
@@ -129,6 +158,33 @@
 }
 
 .scroll-top-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    background-color: #14a7d6;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease;
+    animation: fadeSlideIn 0.3s ease forwards;
+
+    &:hover {
+        background-color: #117fa2;
+    }
+}
+
+.scroll-top-btn.hide {
+    animation: fadeSlideOut 0.3s ease forwards;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.scroll-bottom-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -149,7 +205,7 @@
     }
 }
 
-.scroll-top-btn.hide {
+.scroll-bottom-btn.hide {
     animation: fadeSlideOut 0.3s ease forwards;
     pointer-events: none;
     opacity: 0;
@@ -178,4 +234,20 @@
         opacity: 0;
         transform: translateY(20px);
     }
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInRow 1s ease-in-out;
 }
