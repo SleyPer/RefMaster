@@ -6,6 +6,7 @@
     font-family: 'Segoe UI', Roboto, sans-serif;
     color: $color-text;
     line-height: 1.6;
+    transition: background-color 0.3s ease;
 
     .title {
         text-align: center;
@@ -77,6 +78,7 @@
 
         tr:nth-child(even) td {
             background-color: $color-alt-row;
+            transition: background-color 0.3s ease;
         }
 
         tr:hover td {

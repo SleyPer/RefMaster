@@ -4,14 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) var(--color-bg);
 }
 
 body,
 html {
     height: 100%;
     width: 100%;
-
-    transition: background-color 1s ease, color 1s ease;
 }
 
 body {
@@ -34,8 +34,6 @@ body {
     --separator-primary: #{$separator-primary-light};
     background-color: var(--color-bg);
     color: var(--color-text);
-
-    transition: all 0.4s ease;
 }
 
 body.dark-mode {
@@ -58,6 +56,25 @@ body.dark-mode {
     --separator-primary: #{$separator-primary-dark};
     background-color: var(--color-bg);
     color: var(--color-text);
+}
 
-    transition: all 0.4s ease;
+/* Style de la scrollbar pour tous les navigateurs compatibles */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 10px;
+    border: 2px solid var(--color-bg);
+    transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary);
 }

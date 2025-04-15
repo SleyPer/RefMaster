@@ -18,6 +18,14 @@
             </thead>
             <tbody>
 
+                <!-- Séparateur -->
+                <tr class="separator-row" *ngIf="futureDesignations.length > 0">
+                    <td colspan="9" class="designation-separator">
+                        <span class="separator-icon">🌙</span>
+                        Désignations à venir
+                    </td>
+                </tr>
+
                 <!-- Désignations passées -->
                 <tr *ngFor="let designation of pastDesignations">
                     <td>{{ designation.date | date:'dd/MM/yyyy' }}</td>
