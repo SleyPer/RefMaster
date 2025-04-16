@@ -35,6 +35,7 @@
         align-items: center;
         padding: 10px;
         animation: slideDownFromTop 0.5s ease-in-out;
+        overflow-x: auto;
 
         &.collapsed {
             width: 100%;
