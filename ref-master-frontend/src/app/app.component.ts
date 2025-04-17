@@ -16,8 +16,4 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.contentService.setContentRef(this.contentRef);
   }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-  }
 }

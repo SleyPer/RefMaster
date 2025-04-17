@@ -1,6 +1,18 @@
-<aside class="sidebar">
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/designations" routerLinkActive="active">Mes désignations</a>
-    <a routerLink="/statistiques" routerLinkActive="active">Mes statistiques</a>
-    <a routerLink="/arbitres" routerLinkActive="active">Arbitres</a>
+<aside class="sidebar" [class.collapsed]="collapsed">
+    <a routerLink="/dashboard" routerLinkActive="active">
+        <span class="icon"><fa-icon [icon]="['fas', 'home']"></fa-icon></span>
+        <span class="label">Dashboard</span>
+    </a>
+    <a routerLink="/designations" routerLinkActive="active">
+        <span class="icon"><fa-icon [icon]="['fas', 'table-list']"></fa-icon></span>
+        <span class="label">Mes désignations</span>
+    </a>
+    <a routerLink="/statistiques" routerLinkActive="active">
+        <span class="icon"><fa-icon [icon]="['fas', 'chart-line']"></fa-icon></span>
+        <span class="label">Mes statistiques</span>
+    </a>
+
+    <span class="toggle-btn" (click)="toggleSidebar()">
+        <fa-icon [icon]="collapsed ? ['fas', 'angle-right'] : ['fas', 'angle-left']"></fa-icon>
+    </span>
 </aside>
