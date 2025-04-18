@@ -1,5 +1,3 @@
-import { Arbitre } from "./arbitre.model";
-
 export interface Designation {
     id?: number;
     date: string;
@@ -8,7 +6,7 @@ export interface Designation {
     equipeB: string;
     salle: string;
     ville: string;
-    collegue: Arbitre;
+    collegue: string;
     kmParcourus: number;
     revenus: number;
 }

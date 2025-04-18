@@ -1,14 +1,11 @@
 package com.example.ref_master_backend.service;
 
-import com.example.ref_master_backend.entity.Arbitre;
 import com.example.ref_master_backend.entity.Designation;
-import com.example.ref_master_backend.repository.ArbitreRepository;
 import com.example.ref_master_backend.repository.DesignationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,9 +20,6 @@ public class DesignationService {
     @Autowired
     private DesignationRepository designationRepository;
 
-    @Autowired
-    private ArbitreRepository arbitreRepository;
-
     // Récupérer toutes les désignations
     public List<Designation> getAllDesignations() {
         return designationRepository.findAllByOrderByDateAsc();
@@ -33,11 +27,6 @@ public class DesignationService {
 
     // Ajouter une nouvelle désignation
     public Designation saveDesignation(Designation designation) {
-        if (designation.getCollegue() != null && designation.getCollegue().getId() != null) {
-            Arbitre collegueComplet = arbitreRepository.findById(designation.getCollegue().getId())
-                    .orElseThrow(() -> new RuntimeException("Arbitre non trouvé."));
-            designation.setCollegue(collegueComplet);
-        }
         return designationRepository.save(designation);
     }
 
@@ -106,10 +95,8 @@ public class DesignationService {
 
             String finalNom = nom;
             String finalPrenom = prenom;
-            Arbitre collegue = arbitreRepository.findByNomAndPrenom(nom, prenom)
-                    .orElseThrow(() -> new RuntimeException("Impossible de lire le collègue arbitre : " + finalNom + " " + finalPrenom));
 
-            designation.setCollegue(collegue);
+            designation.setCollegue(finalNom + " " + finalPrenom);
         }
 
         // 8. Km et revenu de PREVOST (ton arbitre)

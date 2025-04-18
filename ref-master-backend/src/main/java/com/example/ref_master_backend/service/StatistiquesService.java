@@ -93,7 +93,7 @@ public class StatistiquesService {
 
             // Collègue
             if (d.getCollegue() != null) {
-                String collegueNom = d.getCollegue().getNom() + " " + d.getCollegue().getPrenom();
+                String collegueNom = d.getCollegue();
                 collegueFrequency.merge(collegueNom, 1, Integer::sum);
                 moisStats.incrementCollegue(collegueNom);
             }
