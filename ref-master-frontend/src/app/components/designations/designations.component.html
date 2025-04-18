@@ -97,8 +97,7 @@
                     <td>{{ designation.equipeB }}</td>
                     <td>{{ designation.salle }}</td>
                     <td>{{ designation.ville }}</td>
-                    <td *ngIf="designation.collegue">{{ designation.collegue.nom }} {{ designation.collegue.prenom }}
-                    </td>
+                    <td *ngIf="designation.collegue">{{ designation.collegue }}</td>
                     <td *ngIf="!designation.collegue">-</td>
                     <td>{{ designation.kmParcourus }}</td>
                     <td>{{ designation.revenus | currency:'EUR' }}</td>
@@ -120,8 +119,7 @@
                     <td>{{ designation.equipeB }}</td>
                     <td>{{ designation.salle }}</td>
                     <td>{{ designation.ville }}</td>
-                    <td *ngIf="designation.collegue">{{ designation.collegue.nom }} {{ designation.collegue.prenom }}
-                    </td>
+                    <td *ngIf="designation.collegue">{{ designation.collegue }}</td>
                     <td *ngIf="!designation.collegue">-</td>
                     <td>{{ designation.kmParcourus }}</td>
                     <td>{{ designation.revenus | currency:'EUR' }}</td>

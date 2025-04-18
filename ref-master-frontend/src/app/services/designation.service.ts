@@ -18,12 +18,6 @@ export class DesignationService {
   }
 
   createDesignation(designation: Designation): Observable<Designation> {
-    const payload = {
-      ...designation,
-      collegue: {
-        id: designation.collegue.id
-      }
-    };
-    return this.http.post<Designation>(this.apiUrl, payload);
+    return this.http.post<Designation>(this.apiUrl, designation);
   }
 }
