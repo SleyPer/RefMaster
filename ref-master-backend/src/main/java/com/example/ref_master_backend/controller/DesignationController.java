@@ -58,6 +58,24 @@ public class DesignationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDesignation);
     }
 
+    // Mets à jour une désignation
+    @PutMapping
+    public ResponseEntity<Designation> updateDesignation(@RequestBody Designation designation) {
+        if (designation.getId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Designation> existingDesignation = designationService.getDesignationById(designation.getId());
+
+        if (existingDesignation.isPresent()) {
+            Designation updated = designationService.saveDesignation(designation);
+            return ResponseEntity.ok(updated);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     // Supprimer une désignation
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDesignation(@PathVariable Long id) {

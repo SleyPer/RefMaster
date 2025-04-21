@@ -9,19 +9,22 @@
     padding: 0 20px;
     gap: 20px;
 
-    .logo {
-        font-weight: bold;
-        font-size: 1.2rem;
+    .logo,
+    .user-info {
         white-space: nowrap;
     }
 
-    .spacer {
-        flex: 1;
+    .logo {
+        font-weight: bold;
+        font-size: 1.2rem;
     }
 
     .user-info {
         font-size: 0.9rem;
-        white-space: nowrap;
+    }
+
+    .spacer {
+        flex: 1;
     }
 
     .theme-toggle {
@@ -48,19 +51,19 @@
             }
 
             .slider {
-                background-color: $color-border;
-                border-radius: 50px;
                 position: absolute;
-                cursor: pointer;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                transition: background-color 0.4s ease;
+                background-color: $color-border;
+                border-radius: 50px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 8px;
+                cursor: pointer;
+                transition: background-color 0.4s ease;
 
                 .icon {
                     font-size: 16px;

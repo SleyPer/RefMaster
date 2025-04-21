@@ -20,4 +20,12 @@ export class DesignationService {
   createDesignation(designation: Designation): Observable<Designation> {
     return this.http.post<Designation>(this.apiUrl, designation);
   }
+
+  updateDesignation(designation: Designation): Observable<Designation> {
+    return this.http.put<Designation>(this.apiUrl, designation);
+  }
+
+  deleteDesignation(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + "/" + id);
+  }
 }

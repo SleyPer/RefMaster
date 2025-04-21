@@ -5,132 +5,50 @@
         <table class="designations-table">
             <thead>
                 <tr>
-                    <th (click)="sortBy('date')">
-                        <span class="sortable-header">
-                            Date
-                            <span class="sort-icon" [class.active]="sortColumn === 'date'">
-                                {{ getSortIcon('date') }}
+                    <ng-container *ngFor="let col of columns">
+                        <th (click)="sortBy(col.key)">
+                            <span class="sortable-header">
+                                {{ col.label }}
+                                <span class="sort-icon" [class.active]="sortColumn === col.key">
+                                    {{ getSortIcon(col.key) }}
+                                </span>
                             </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('division')">
-                        <span class="sortable-header">
-                            Division
-                            <span class="sort-icon" [class.active]="sortColumn === 'division'">
-                                {{ getSortIcon('division') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('equipeA')">
-                        <span class="sortable-header">
-                            Equipe A
-                            <span class="sort-icon" [class.active]="sortColumn === 'equipeA'">
-                                {{ getSortIcon('equipeA') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('equipeB')">
-                        <span class="sortable-header">
-                            Equipe B
-                            <span class="sort-icon" [class.active]="sortColumn === 'equipeB'">
-                                {{ getSortIcon('equipeB') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('salle')">
-                        <span class="sortable-header">
-                            Salle
-                            <span class="sort-icon" [class.active]="sortColumn === 'salle'">
-                                {{ getSortIcon('salle') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('ville')">
-                        <span class="sortable-header">
-                            Ville
-                            <span class="sort-icon" [class.active]="sortColumn === 'ville'">
-                                {{ getSortIcon('ville') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('collegue')">
-                        <span class="sortable-header">
-                            Collègue
-                            <span class="sort-icon" [class.active]="sortColumn === 'collegue'">
-                                {{ getSortIcon('collegue') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('kmParcourus')">
-                        <span class="sortable-header">
-                            Kilomètres
-                            <span class="sort-icon" [class.active]="sortColumn === 'kmParcourus'">
-                                {{ getSortIcon('kmParcourus') }}
-                            </span>
-                        </span>
-                    </th>
-                    <th (click)="sortBy('revenus')">
-                        <span class="sortable-header">
-                            Revenus
-                            <span class="sort-icon" [class.active]="sortColumn === 'revenus'">
-                                {{ getSortIcon('revenus') }}
-                            </span>
-                        </span>
-                    </th>
+                        </th>
+                    </ng-container>
                 </tr>
             </thead>
+
             <tbody>
+                <!-- Bloc générique pour affichage des listes -->
+                <ng-container *ngIf="pastDesignations.length > 0">
+                    <tr class="separator-row fade-in">
+                        <td colspan="10" class="designation-separator">
+                            <span class="separator-icon">🌙</span>
+                            Désignations passées
+                        </td>
+                    </tr>
+                    <ng-container
+                        *ngTemplateOutlet="designationRows; context: { $implicit: pastDesignations }">
+                    </ng-container>
+                </ng-container>
 
-                <!-- Séparateur -->
-                <tr class="separator-row" *ngIf="pastDesignations.length > 0" class="fade-in">
-                    <td colspan="9" class="designation-separator">
-                        <span class="separator-icon">🌙</span>
-                        Désignations passées
-                    </td>
-                </tr>
-
-                <!-- Désignations passées -->
-                <tr *ngFor="let designation of pastDesignations" class="fade-in">
-                    <td>{{ designation.date | date:'dd/MM/yyyy' }}</td>
-                    <td>{{ designation.division }}</td>
-                    <td>{{ designation.equipeA }}</td>
-                    <td>{{ designation.equipeB }}</td>
-                    <td>{{ designation.salle }}</td>
-                    <td>{{ designation.ville }}</td>
-                    <td *ngIf="designation.collegue">{{ designation.collegue }}</td>
-                    <td *ngIf="!designation.collegue">-</td>
-                    <td>{{ designation.kmParcourus }}</td>
-                    <td>{{ designation.revenus | currency:'EUR' }}</td>
-                </tr>
-
-                <!-- Séparateur -->
-                <tr class="separator-row" *ngIf="futureDesignations.length > 0" class="fade-in">
-                    <td colspan="9" class="designation-separator">
-                        <span class="separator-icon">🌙</span>
-                        Désignations à venir
-                    </td>
-                </tr>
-
-                <!-- Désignations futures -->
-                <tr *ngFor="let designation of futureDesignations" class="fade-in">
-                    <td>{{ designation.date | date:'dd/MM/yyyy' }}</td>
-                    <td>{{ designation.division }}</td>
-                    <td>{{ designation.equipeA }}</td>
-                    <td>{{ designation.equipeB }}</td>
-                    <td>{{ designation.salle }}</td>
-                    <td>{{ designation.ville }}</td>
-                    <td *ngIf="designation.collegue">{{ designation.collegue }}</td>
-                    <td *ngIf="!designation.collegue">-</td>
-                    <td>{{ designation.kmParcourus }}</td>
-                    <td>{{ designation.revenus | currency:'EUR' }}</td>
-                </tr>
+                <ng-container *ngIf="futureDesignations.length > 0">
+                    <tr class="separator-row fade-in">
+                        <td colspan="10" class="designation-separator">
+                            <span class="separator-icon">🌙</span>
+                            Désignations à venir
+                        </td>
+                    </tr>
+                    <ng-container
+                        *ngTemplateOutlet="designationRows; context: { $implicit: futureDesignations }">
+                    </ng-container>
+                </ng-container>
 
                 <tr *ngIf="pastDesignations.length === 0 && futureDesignations.length === 0" class="fade-in">
-                    <td colspan="9" class="no-designation-row">
+                    <td colspan="10" class="no-designation-row">
                         Aucune désignation à afficher.
                     </td>
                 </tr>
-
             </tbody>
         </table>
     </div>
@@ -140,3 +58,18 @@
 
 <button class="scroll-top-btn" [class.hide]="!showScrollTopButton" (click)="scrollToTop()">↑</button>
 <button class="scroll-bottom-btn" [class.hide]="!showScrollBottomButton" (click)="scrollToBottom()">↓</button>
+
+<!-- ✅ Template factorisé -->
+<ng-template #designationRows let-designations>
+    <tr *ngFor="let designation of designations" class="fade-in">
+        <td>{{ designation.date | date:'dd/MM/yyyy' }}</td>
+        <td>{{ designation.division }}</td>
+        <td>{{ designation.equipeA }}</td>
+        <td>{{ designation.equipeB }}</td>
+        <td>{{ designation.salle }}</td>
+        <td>{{ designation.ville }}</td>
+        <td>{{ designation.collegue || '-' }}</td>
+        <td>{{ designation.kmParcourus }}</td>
+        <td>{{ designation.revenus | currency:'EUR' }}</td>
+    </tr>
+</ng-template>

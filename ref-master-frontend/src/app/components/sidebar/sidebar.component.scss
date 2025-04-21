@@ -12,11 +12,34 @@
     animation: slideInFromLeft 0.5s ease-in-out;
     position: relative;
 
+    &.collapsed {
+        width: 60px;
+
+        a {
+            .label {
+                opacity: 0;
+                transform: scaleX(0);
+                width: 0;
+                transition: opacity 0.3s ease, transform 0.3s ease, width 0.3s ease;
+                white-space: nowrap;
+            }
+
+            .icon {
+                margin: 0 auto;
+            }
+        }
+
+        .toggle-btn {
+            right: 5px;
+            justify-content: center;
+        }
+    }
+
     .toggle-btn {
         position: absolute;
-        padding: 10px;
         bottom: 10px;
         right: 10px;
+        padding: 10px;
         background: none;
         border: none;
         color: $sidebar-text;
@@ -36,34 +59,6 @@
         }
     }
 
-    &.collapsed {
-        width: 60px;
-
-        a {
-
-            .label {
-                opacity: 0;
-                transform: scaleX(0);
-                width: 0;
-                transition:
-                    opacity 0.3s ease,
-                    transform 0.3s ease,
-                    width 0.3s ease;
-                white-space: nowrap;
-            }
-
-
-            .icon {
-                margin: 0 auto;
-            }
-        }
-
-        .toggle-btn {
-            justify-content: center;
-            right: 5px;
-        }
-    }
-
     @media (max-width: 768px) {
         width: 100%;
         height: auto;
@@ -71,67 +66,63 @@
         justify-content: space-around;
         align-items: center;
         padding: 10px;
-        animation: slideDownFromTop 0.5s ease-in-out;
         overflow-x: auto;
+        animation: slideDownFromTop 0.5s ease-in-out;
 
         &.collapsed {
-            width: 100%;
+            a {
+                .label {
+                    opacity: 1 !important;
+                    transform: scaleX(1) !important;
+                    width: auto !important;
+                    display: inline-block;
+                }
 
-            a .label {
-                opacity: 1 !important;
-                transform: scaleX(1) !important;
-                width: auto !important;
-                display: inline-block;
-            }
-
-            a .icon {
-                margin-right: 10px;
+                .icon {
+                    margin-right: 10px;
+                }
             }
         }
-
-    }
-}
-
-.sidebar a {
-    color: $sidebar-text;
-    text-decoration: none;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        margin-bottom: 0;
-        margin-right: 10px;
-        white-space: nowrap;
     }
 
-    .icon {
-        margin-right: 10px;
-        font-size: 18px;
-        display: inline-block;
-        width: 24px;
-        text-align: center;
-    }
+    a {
+        color: $sidebar-text;
+        text-decoration: none;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
 
-    .label {
-        transition:
-            opacity 0.3s ease,
-            transform 0.3s ease,
-            width 0.3s ease;
-        opacity: 1;
-        transform: scaleX(1);
-        transform-origin: left;
-        display: inline-block;
-        white-space: nowrap;
-    }
-}
+        @media (max-width: 768px) {
+            margin-bottom: 0;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
 
-.sidebar a.active,
-.sidebar a:hover {
-    background-color: $sidebar-hover;
+        .icon {
+            margin-right: 10px;
+            font-size: 18px;
+            display: inline-block;
+            width: 24px;
+            text-align: center;
+        }
+
+        .label {
+            display: inline-block;
+            white-space: nowrap;
+            transform-origin: left;
+            opacity: 1;
+            transform: scaleX(1);
+            transition: opacity 0.3s ease, transform 0.3s ease, width 0.3s ease;
+        }
+
+        &.active,
+        &:hover {
+            background-color: $sidebar-hover;
+        }
+    }
 }
 
 .toggle-btn {

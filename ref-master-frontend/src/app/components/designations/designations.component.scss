@@ -1,5 +1,51 @@
 @import 'src/styles/variables';
 
+/* -------------------------------------
+ * Mixins & Placeholders
+ * ------------------------------------- */
+@mixin fade($name, $fromY, $toY) {
+    @keyframes #{$name} {
+        from {
+            opacity: 0;
+            transform: translateY(#{$fromY});
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(#{$toY});
+        }
+    }
+}
+
+%scroll-btn {
+    position: fixed;
+    right: 30px;
+    background-color: #14a7d6;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.3s ease;
+    animation: fadeSlideIn 0.3s ease forwards;
+
+    &:hover {
+        background-color: #117fa2;
+    }
+
+    &.hide {
+        animation: fadeSlideOut 0.3s ease forwards;
+        pointer-events: none;
+        display: none;
+    }
+}
+
+/* -------------------------------------
+ * Container
+ * ------------------------------------- */
 .designations-container {
     padding: 20px;
     background-color: $color-bg;
@@ -39,17 +85,15 @@
         background-color: $color-card;
         border-radius: 12px;
         box-shadow: $shadow;
-        overflow-x: auto;
-        overflow-y: auto;
+        overflow: auto;
         max-height: 1000px;
-        padding: 0;
         scroll-behavior: smooth;
     }
 
     .designations-table {
         width: 100%;
-        border-collapse: collapse;
         min-width: 700px;
+        border-collapse: collapse;
 
         th,
         td {
@@ -57,7 +101,6 @@
             text-align: left;
             font-size: 15px;
             border-bottom: 1px solid $color-border;
-            font-weight: 400;
         }
 
         th {
@@ -68,8 +111,8 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            z-index: 2;
             cursor: pointer;
+            z-index: 2;
         }
 
         td {
@@ -90,6 +133,9 @@
     }
 }
 
+/* -------------------------------------
+ * Separators & States
+ * ------------------------------------- */
 .designation-separator {
     position: sticky;
     top: 45px;
@@ -139,115 +185,31 @@ th .sortable-header {
     }
 }
 
+/* -------------------------------------
+ * Animations
+ * ------------------------------------- */
+@include fade(fadeSlideIn, 20px, 0);
+@include fade(fadeSlideOut, 0, 20px);
+@include fade(fadeInRow, 10px, 0);
+@include fade(fadeInSeparator, -8px, 0);
 
-
-@keyframes fadeInSeparator {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.fade-in {
+    animation: fadeInRow 1s ease-in-out;
 }
 
 .separator-row td {
     border-bottom: none;
 }
 
+/* -------------------------------------
+ * Floating Buttons
+ * ------------------------------------- */
 .scroll-top-btn {
-    position: fixed;
+    @extend %scroll-btn;
     bottom: 80px;
-    right: 30px;
-    background-color: #14a7d6;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    transition: background-color 0.3s ease;
-    animation: fadeSlideIn 0.3s ease forwards;
-
-    &:hover {
-        background-color: #117fa2;
-    }
-}
-
-.scroll-top-btn.hide {
-    animation: fadeSlideOut 0.3s ease forwards;
-    pointer-events: none;
-    opacity: 0;
 }
 
 .scroll-bottom-btn {
-    position: fixed;
+    @extend %scroll-btn;
     bottom: 30px;
-    right: 30px;
-    background-color: #14a7d6;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    transition: background-color 0.3s ease;
-    animation: fadeSlideIn 0.3s ease forwards;
-
-    &:hover {
-        background-color: #117fa2;
-    }
-}
-
-.scroll-bottom-btn.hide {
-    animation: fadeSlideOut 0.3s ease forwards;
-    pointer-events: none;
-    opacity: 0;
-}
-
-
-@keyframes fadeSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeSlideOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    to {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-
-@keyframes fadeInRow {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeInRow 1s ease-in-out;
 }
