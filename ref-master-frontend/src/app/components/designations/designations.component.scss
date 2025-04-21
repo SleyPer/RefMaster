@@ -85,7 +85,12 @@
         background-color: $color-card;
         border-radius: 12px;
         box-shadow: $shadow;
-        overflow: auto;
+        overflow: visible;
+        position: relative;
+        z-index: 0;
+        max-height: 1000px;
+        overflow-y: auto;
+        overflow-x: visible;
         max-height: 1000px;
         scroll-behavior: smooth;
     }
@@ -119,6 +124,19 @@
             background-color: $color-card;
             color: $color-text;
             text-transform: capitalize;
+        }
+
+        tr.designations {
+            transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+
+            &:hover {
+                background-color: $color-hover;
+                transform: scale(1.02) translateY(-2px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+                position: relative;
+                z-index: 10;
+                cursor: pointer;
+            }
         }
 
         tr:nth-child(even) td {

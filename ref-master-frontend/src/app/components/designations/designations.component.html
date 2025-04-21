@@ -61,7 +61,10 @@
 
 <!-- ✅ Template factorisé -->
 <ng-template #designationRows let-designations>
-    <tr *ngFor="let designation of designations" class="fade-in">
+    <tr *ngFor="let designation of designations" 
+        class="designations fade-in"
+        (click)="goToDesignationDetails(designation.id)"
+    >
         <td>{{ designation.date | date:'dd/MM/yyyy' }}</td>
         <td>{{ designation.division }}</td>
         <td>{{ designation.equipeA }}</td>

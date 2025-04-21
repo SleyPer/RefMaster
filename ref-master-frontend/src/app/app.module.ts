@@ -15,6 +15,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DesignationsComponent } from './components/designations/designations.component';
 import { UploadPdfComponent } from './components/upload-pdf/upload-pdf.component';
 import { StatistiquesComponent } from './components/statistiques/statistiques.component';
+import { DesignationDetailComponent } from './components/designation-detail/designation-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { StatistiquesComponent } from './components/statistiques/statistiques.co
     DashboardComponent,
     DesignationsComponent,
     UploadPdfComponent,
-    StatistiquesComponent
+    StatistiquesComponent,
+    DesignationDetailComponent
   ],
   imports: [
     BrowserModule,

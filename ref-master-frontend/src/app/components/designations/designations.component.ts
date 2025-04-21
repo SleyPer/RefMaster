@@ -11,6 +11,7 @@ import { Designation } from 'src/app/models/designation.model';
 import { Subject, takeUntil } from 'rxjs';
 import { ListeDesignations } from 'src/app/models/liste-designations.model';
 import { ContentService } from 'src/app/services/content.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-designations',
@@ -37,7 +38,7 @@ export class DesignationsComponent implements OnInit, AfterViewInit, OnDestroy {
     { key: 'collegue', label: 'Collègue' },
     { key: 'kmParcourus', label: 'Kilomètres' },
     { key: 'revenus', label: 'Revenus' }
-  ];  
+  ];
 
   sortColumn = '';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -46,7 +47,8 @@ export class DesignationsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private readonly designationService: DesignationService,
-    private readonly contentService: ContentService
+    private readonly contentService: ContentService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -129,6 +131,10 @@ export class DesignationsComponent implements OnInit, AfterViewInit, OnDestroy {
   getSortIcon(column: string): string {
     if (this.sortColumn !== column) return '⇅';
     return this.sortDirection === 'asc' ? '↑' : '↓';
+  }
+
+  goToDesignationDetails(id: number) {
+    this.router.navigate(['/designation', id]);
   }
 
   ngOnDestroy(): void {
